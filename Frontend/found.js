@@ -45,7 +45,7 @@ function submitFound() {
     return;
   }
 
-  fetch("https://reclaimx-project.onrender.com/api/reports", {
+  fetch("https://reclaimx-project-2.onrender.com/api/reports", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(report)

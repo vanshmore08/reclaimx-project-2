@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const box = document.getElementById("foundItemsList");
 
-  const BACKEND_URL = "https://reclaimx-project.onrender.com/api";
+  const BACKEND_URL = "https://reclaimx-project-2.onrender.com/api";
 
   // User session check
   if (!sessionStorage.getItem("userLoggedIn")) {

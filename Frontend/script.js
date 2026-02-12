@@ -1,7 +1,7 @@
 let isSignUp = false;
 let isAdminMode = false;
 
-const BACKEND_URL = "https://reclaimx-project.onrender.com/api";
+const BACKEND_URL = "https://reclaimx-project-2.onrender.com/api";
 
 /* Toggle Login / Signup */
 function toggleForm(type) {
