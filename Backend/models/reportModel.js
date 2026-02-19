@@ -13,8 +13,10 @@ const reportSchema = new mongoose.Schema({
   photo: String,
   resolvedAt: String,
 
-  // 🔥 NEW
   matchId: String,
   matchColor: String,
 
 }, { timestamps: true });
+
+// 🔥 MOST IMPORTANT LINE
+module.exports = mongoose.model("Report", reportSchema);
