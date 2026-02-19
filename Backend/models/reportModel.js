@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const reportSchema = new mongoose.Schema({
-  type: { type: String, required: true }, // "lost" or "found"
+  type: { type: String, required: true },
   name: { type: String, required: true },
   category: { type: String, required: true },
   description: String,
@@ -9,9 +9,12 @@ const reportSchema = new mongoose.Schema({
   location: String,
   fullName: { type: String, required: true },
   mobile: { type: String, required: true },
-  classCourse: String, // only for lost items
+  classCourse: String,
   photo: String,
-  resolvedAt: String, // timestamp when resolved
-}, { timestamps: true });
+  resolvedAt: String,
 
-module.exports = mongoose.model("Report", reportSchema);
+  // 🔥 NEW
+  matchId: String,
+  matchColor: String,
+
+}, { timestamps: true });
