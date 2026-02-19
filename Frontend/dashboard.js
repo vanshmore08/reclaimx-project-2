@@ -58,6 +58,30 @@ async function loadDashboard() {
         const pending = reports.filter(r => !r.resolvedAt);
         const resolved = reports.filter(r => r.resolvedAt);
 
+        // 🔥 MATCH LOGIC
+        function getMatchKey(item) {
+            return (item.name + "_" + item.category).toLowerCase();
+        }
+
+        let groups = {};
+
+        pending.forEach(r => {
+            const key = getMatchKey(r);
+            if (!groups[key]) groups[key] = [];
+            groups[key].push(r);
+        });
+
+        const colors = ["#ff6b6b", "#6c5ce7", "#00b894", "#e17055", "#0984e3"];
+        let colorMap = {};
+        let colorIndex = 0;
+
+        Object.keys(groups).forEach(key => {
+            if (groups[key].length > 1) {
+                colorMap[key] = colors[colorIndex % colors.length];
+                colorIndex++;
+            }
+        });
+
         document.getElementById("lostCount").innerText =
             pending.filter(r => r.type === "lost").length;
 
@@ -67,18 +91,36 @@ async function loadDashboard() {
         document.getElementById("historyCountDisplay").innerText = resolved.length;
 
         if (!isHistoryMode) {
-            const list = pending.filter(r =>
+
+            let list = pending.filter(r =>
                 r.type === currentFilter &&
                 (r.name.toLowerCase().includes(search) ||
                     (r.fullName && r.fullName.toLowerCase().includes(search))) &&
                 (cat === "" || r.category === cat)
             );
 
+            // 🔥 COLOR APPLY HERE
+            list = list.map(item => {
+                const key = getMatchKey(item);
+                return {
+                    ...item,
+                    matchColor: colorMap[key] || "#ccc"
+                };
+            });
+
+            // 🔥 SORT matched items TOP
+            list.sort((a, b) => {
+                const aMatch = a.matchColor !== "#ccc" ? 1 : 0;
+                const bMatch = b.matchColor !== "#ccc" ? 1 : 0;
+                return bMatch - aMatch;
+            });
+
             activeList.innerHTML = list.length === 0
                 ? `<p style="grid-column:1/-1;text-align:center;color:#888;">No reports found</p>`
-                : list.reverse().map(renderPendingCard).join("");
+                : list.map(renderPendingCard).join("");
 
         } else {
+
             const filteredHistory = resolved.filter(r =>
                 r.name.toLowerCase().includes(search) ||
                 (r.fullName && r.fullName.toLowerCase().includes(search))
@@ -102,6 +144,7 @@ async function loadDashboard() {
                     </div>
                 `).join("");
         }
+
     } catch (err) {
         console.error("Dashboard error:", err);
         alert("Failed to load dashboard");
@@ -111,7 +154,9 @@ async function loadDashboard() {
 /* Pending Card */
 function renderPendingCard(item) {
     return `
-    <div class="item-card modern-item-card">
+    <div class="item-card modern-item-card"
+     style="border-left:5px solid ${item.matchColor}">
+    
         <span class="badge ${item.type === "lost" ? "badge-lost" : "badge-found"}">
             ${item.type.toUpperCase()}
         </span>
@@ -133,6 +178,7 @@ function renderPendingCard(item) {
         </div>
     </div>`;
 }
+
 
 /* Resolve */
 async function resolveReport(id) {
