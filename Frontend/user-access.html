@@ -36,7 +36,7 @@
         <p class="subtitle">What would you like to do today?</p>
 
         <div class="guest-grid">
-            <div class="guest-card" onclick="location.href='report-lost.html'" style="cursor: pointer;">
+            <div class="guest-card" onclick="openLostPopup()" style="cursor: pointer;">
                 <div class="icon-circle lost-bg">!</div>
                 <h4>Report Lost Item</h4>
                 <p>Lost something? Post details here.</p>
@@ -57,6 +57,26 @@
     </div>
 </main>
 
+<!-- LOST ITEM POPUP -->
+<div id="lostPopup" class="popup-overlay" style="display:none;">
+  <div class="popup-box">
+    
+    <span class="popup-close" onclick="closeLostPopup()">×</span>
+
+    <h3>Before reporting a lost item</h3>
+    <p>
+      Please check the found items list first. If your item is not listed, then continue to report.
+      If your item is already found, you can directly receive it without reporting.
+    </p>
+
+    <div class="popup-buttons">
+      <button class="btn-blue" onclick="goToFound()">View Found Items</button>
+      <button class="btn-green" onclick="continueLost()">Continue Reporting</button>
+    </div>
+
+  </div>
+</div>
+
 <script>
     function confirmLogout() {
         // Purana style confirm box as per your request
@@ -68,6 +88,23 @@
             window.location.href = "index.html";
         }
     }
+  
+function openLostPopup() {
+    document.getElementById("lostPopup").style.display = "flex";
+}
+
+function closeLostPopup() {
+    document.getElementById("lostPopup").style.display = "none";
+}
+
+function goToFound() {
+    window.location.href = "view-found.html";
+}
+
+function continueLost() {
+    window.location.href = "report-lost.html";
+}
+
 </script>
 </body>
 </html>

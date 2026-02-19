@@ -968,3 +968,123 @@ hr {
     cursor: pointer;
     font-weight: 700;
 }
+/* POPUP OVERLAY */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* POPUP BOX */
+.popup-box {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 14px;
+  width: 380px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: popupFade 0.3s ease;
+}
+
+/* Smooth animation */
+@keyframes popupFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* CLOSE BUTTON */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+}
+
+/* TITLE */
+.popup-box h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #222;
+}
+
+/* TEXT */
+.popup-box p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* BUTTONS CONTAINER */
+.popup-buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 12px; /* spacing fix 🔥 */
+  justify-content: center;
+}
+
+/* BLUE BUTTON */
+.btn-blue {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn-blue:hover {
+  background: #0056b3;
+}
+
+/* GREEN BUTTON */
+.btn-green {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn-green:hover {
+  background: #1e7e34;
+}
+.popup-buttons {
+  flex-direction: column;
+}
+
+.btn-blue, .btn-green {
+  width: 100%;
+}
+.popup-box {
+  background: #ffffff;
+  color: #000; /* 🔥 IMPORTANT FIX */
+}
+.popup-box h3 {
+  color: #222 !important;
+}
+
+.popup-box p {
+  color: #444 !important;
+}
